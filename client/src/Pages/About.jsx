@@ -1,210 +1,232 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../Component/Navbar";
-import Footer from "../Component/Footer"
+import Footer from "../Component/Footer";
 import { Link } from "react-router-dom";
+import { 
+  FiGithub, FiLinkedin, FiMusic, FiEdit3, 
+  FiLayout, FiServer, FiSettings, FiActivity, FiArrowUpRight 
+} from "react-icons/fi";
+import { SiJavascript, SiReact, SiNodedotjs, SiMongodb, SiMysql, SiHtml5, SiCss3 } from "react-icons/si";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5, ease: [0.23, 1, 0.32, 1] },
+  },
+};
 
 export default function AboutMe() {
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date().toLocaleTimeString()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <>
-      <Navbar /><br/><br/>
-      <section className="bg-gradient-to-b from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-16 px-6 lg:px-20">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-start gap-12">
-           
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
+    <div className="bg-[#000000] min-h-screen text-slate-200 selection:bg-indigo-500/30">
+      <Navbar />
+
+      <section className="relative pt-32 pb-20 px-6 lg:px-20 overflow-hidden">
+       
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.08, 0.12, 0.08] 
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-indigo-600 rounded-full blur-[140px] -z-10" 
+        />
+
+        <div className="max-w-7xl mx-auto">
+         
+          <div className="mb-16">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7 }}
-              className="flex-1"
+              className="flex items-center gap-3 text-indigo-500 mb-4"
             >
-          
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                ABOUT ME
-              </h1>
-
-              <p className="mt-6 text-gray-800 dark:text-gray-200 text-lg sm:text-xl leading-relaxed">
-                Hi, I’m{" "}
-                <span className="font-bold text-indigo-600 dark:text-indigo-400">
-                  Alok Kumar Mishra
-                </span>
-                , a passionate{" "}
-                <span className="font-bold text-purple-600 dark:text-purple-400">
-                  MERN Stack Developer
-                </span>{" "}
-                and real-world problem solver. I love turning complex challenges
-                into{" "}
-                <span className="text-pink-600 dark:text-pink-400 font-medium">
-                  beautiful, scalable, and efficient
-                </span>{" "}
-                web applications.
-              </p>
-
+              <span className="h-[1px] w-8 bg-indigo-500" />
+              <span className="text-[10px] font-black uppercase tracking-[0.5em]">Identity Profile</span>
+            </motion.div>
             
-              <p className="mt-4 text-gray-700 dark:text-gray-300 text-base sm:text-lg">
-                I focus on writing clean code, optimizing performance, and
-                building delightful user experiences. When I’m not coding, I
-                solve DSA problems, explore ML integration, and work on
-                side-projects.
-              </p>
+            <motion.h1 
+              initial={{ opacity: 0, filter: "blur(10px)" }}
+              animate={{ opacity: 1, filter: "blur(0px)" }}
+              transition={{ duration: 0.8 }}
+              className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-none"
+            >
+              ALOK <span className="text-slate-700">KUMAR</span> <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-400 to-indigo-300">
+                MISHRA.
+              </span>
+            </motion.h1>
+          </div>
+
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-4 gap-4"
+          >
+            
+            {/* Bio Tile */}
+            <motion.div 
+              variants={itemVariants}
+              whileHover={{ scale: 1.01 }}
+              className="md:col-span-2 md:row-span-2 bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                <FiArrowUpRight size={24} className="text-indigo-500" />
+              </div>
+              <div>
+                <div className="flex gap-2 mb-8">
+                  <div className="h-3 w-3 rounded-full bg-red-500/40" />
+                  <div className="h-3 w-3 rounded-full bg-amber-500/40" />
+                  <div className="h-3 w-3 rounded-full bg-emerald-500/40" />
+                </div>
+                <h3 className="text-3xl font-bold text-white mb-6 italic font-serif leading-tight">
+                  "Architecting logic, <br/> perfecting pixels."
+                </h3>
+                <p className="text-slate-400 leading-relaxed text-base">
+                  Full-stack developer with a core focus on the <span className="text-indigo-400 font-medium">MERN ecosystem</span>. 
+                  Specializing in turning complex requirements into seamless, high-performance 
+                  digital experiences.
+                </p>
+              </div>
+              <div className="mt-10 flex gap-4">
+                {[
+                  { icon: <FiGithub />, href: "https://github.com/brahmanalok51-code" },
+                  { icon: <FiLinkedin />, href: "https://www.linkedin.com/in/alok-mishra-46aa7429b" }
+                ].map((social, i) => (
+                  <motion.a 
+                    key={i}
+                    whileHover={{ y: -5, backgroundColor: "rgba(99, 102, 241, 0.2)" }}
+                    href={social.href} 
+                    target="_blank" 
+                    className="p-4 bg-white/5 border border-white/10 rounded-2xl transition-colors text-indigo-400"
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
 
            
-              <div className="mt-6 flex flex-wrap gap-4">
-                <Link
-                  to="/projects"
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition"
-                >
-                   View Projects
-                </Link>
-
-                <Link
-                  to="/contact"
-                  className="px-6 py-3 rounded-full border-2 border-purple-400 dark:border-purple-600 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-800 transition font-medium"
-                >
-                  ✉️ Contact Me
-                </Link>
+            <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-[#0A0A0A] border border-white/5 rounded-[2rem] p-6 flex flex-col items-center justify-center text-center group">
+              <div className="relative">
+                 <FiActivity className="text-emerald-500 mb-4" size={24} />
+                 <motion.div 
+                    animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+                    transition={{ repeat: Infinity, duration: 2 }}
+                    className="absolute inset-0 bg-emerald-500/30 blur-xl rounded-full"
+                 />
               </div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Status</p>
+              <p className="text-white font-bold uppercase tracking-tighter group-hover:text-emerald-400 transition-colors">Available for Work</p>
+            </motion.div>
 
-            
-              <div className="mt-10 space-y-6">
-                
-                <InfoCard title="🎓 Education">
-                  <ul className="list-disc ml-5 space-y-1">
-                    <li>Matriculation: 71%</li>
-                    <li>Intermediate: 67%</li>
-                    <li>Graduation: 7.2 CGPA</li>
-                  </ul>
-                </InfoCard>
+         
+            <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-[#0A0A0A] border border-white/5 rounded-[2rem] p-6 flex flex-col items-center justify-center text-center">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Location / IST</p>
+              <p className="text-2xl font-mono text-indigo-400 font-bold tracking-tighter">{time}</p>
+            </motion.div>
 
-             
-                <InfoCard title=" Languages Known">
-                  Hindi, English, Bhojpuri
-                </InfoCard>
-
-             
-                <InfoCard title=" Technical Skills">
-                  <ProgressBar name="Java" level={80} />
-                  <ProgressBar name="JavaScript" level={85} />
-                  <ProgressBar name="React.js" level={80} />
-                  <ProgressBar name="Node.js & Express" level={75} />
-                  <ProgressBar name="MongoDB" level={70} />
-                  <ProgressBar name="SQL" level={65} />
-                </InfoCard>
-
-                {/* Hobbies */}
-                <InfoCard title=" Hobbies">
-                  <div className="flex flex-wrap gap-3">
-                    <Badge label="🎵 Music" />
-                    <Badge label="⚽ Football" />
-                    <Badge label="✏️ Drawing" />
-                  </div>
-                </InfoCard>
+         
+            <motion.div variants={itemVariants} className="md:col-span-2 bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] p-8">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500 mb-8 flex items-center gap-2">
+                <FiServer /> Backend Engineering
+              </h3>
+              <div className="flex flex-wrap gap-6">
+                <TechIcon icon={<SiNodedotjs />} label="Node" color="hover:text-emerald-500" />
+                <TechIcon icon={<SiMongodb />} label="MongoDB" color="hover:text-green-500" />
+                <TechIcon icon={<SiMysql />} label="SQL" color="hover:text-blue-400" />
+                <TechIcon icon={<FiSettings />} label="OS" color="hover:text-slate-400" />
               </div>
             </motion.div>
 
-   
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="w-full sm:w-3/4 lg:w-1/3"
+           
+            <motion.div variants={itemVariants} className="md:col-span-2 bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] p-8">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500 mb-8 flex items-center gap-2">
+                <FiLayout /> Interface Stack
+              </h3>
+              <div className="flex flex-wrap gap-6">
+                <TechIcon icon={<SiHtml5 />} label="HTML" color="hover:text-orange-500" />
+                <TechIcon icon={<SiCss3 />} label="CSS" color="hover:text-blue-500" />
+                <TechIcon icon={<SiJavascript />} label="JS" color="hover:text-yellow-400" />
+                <TechIcon icon={<SiReact />} label="React" color="hover:text-cyan-400" />
+              </div>
+            </motion.div>
+
+           
+            <motion.div 
+              variants={itemVariants} 
+              whileHover={{ y: -5 }}
+              className="bg-[#0A0A0A] border border-white/5 rounded-[2rem] p-8 flex flex-col justify-between group"
             >
-              <div className="relative rounded-3xl overflow-hidden border border-purple-200 dark:border-purple-800 shadow-2xl p-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800">
-                <div className="flex items-center gap-4">
-                  <div className="h-20 w-20 sm:h-28 sm:w-28 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl sm:text-2xl shadow-lg animate-pulse">
-                    AK
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500 mb-2">Primary Language</h3>
+              <p className="text-white font-black text-3xl tracking-tighter mb-4 group-hover:text-indigo-400 transition-colors">JAVA</p>
+              <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden p-[1px]">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "80%" }}
+                  transition={{ duration: 1.5, ease: "easeOut" }}
+                  className="h-full bg-gradient-to-r from-indigo-600 to-purple-500 rounded-full" 
+                />
+              </div>
+              <p className="text-[9px] text-slate-500 mt-4 font-bold uppercase tracking-widest">Logic & Problem Solving</p>
+            </motion.div>
+
+           
+            <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-[#0A0A0A] border border-white/5 rounded-[2rem] p-8 flex flex-col justify-between">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500 mb-8">Interests</h3>
+              <div className="space-y-5">
+                {[
+                  { icon: <FiMusic className="text-pink-500" />, label: "MUSIC" },
+                  { icon: <FiEdit3 className="text-amber-500" />, label: "PAINTING" }
+                ].map((hobby, i) => (
+                  <div key={i} className="flex items-center gap-3 text-slate-300 group cursor-default">
+                    <span className="group-hover:rotate-12 transition-transform">{hobby.icon}</span>
+                    <span className="text-xs font-black tracking-widest group-hover:text-white transition-colors">{hobby.label}</span>
                   </div>
-
-                  <div>
-                    <h3 className="text-lg font-bold text-indigo-700 dark:text-indigo-300">
-                      Alok Kumar Mishra
-                    </h3>
-                    <p className="text-sm text-purple-700 dark:text-purple-300">
-                      MERN Stack Developer · Problem Solver
-                    </p>
-                    <p className="mt-1 text-sm text-pink-600 dark:text-pink-400">
-                      Building performant & maintainable web apps
-                    </p>
-                  </div>
-                </div>
-
-                <hr className="my-4 border-purple-200 dark:border-purple-700" />
-
-                <div className="text-sm text-gray-800 dark:text-gray-200">
-                  <strong className="text-purple-600 dark:text-purple-400">
-                    Highlights:
-                  </strong>
-                  <ul className="mt-2 list-disc ml-5 space-y-1">
-                    <li> Full-stack apps with React + Node/Express</li>
-                    <li> RESTful APIs & real-time features</li>
-                    <li> Clean code & performance focused</li>
-                  </ul>
-                </div>
-
-                <div className="mt-5 flex justify-between items-center">
-                  <span className="text-xs text-purple-700 dark:text-purple-300">
-                     Open to freelance & collaborations
-                  </span>
-                  <div className="flex gap-3">
-                    <a
-                      href="https://github.com/Alok-mishra-123"
-                      className="hover:underline text-indigo-700 dark:text-indigo-300"
-                    >
-                      GitHub
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/alok-mishra-46aa7429b"
-                      className="hover:underline text-pink-600 dark:text-pink-400"
-                    >
-                      LinkedIn
-                    </a>
-                  </div>
-                </div>
+                ))}
               </div>
             </motion.div>
-          </div>
+
+          </motion.div>
         </div>
       </section>
-      <Footer/>
-    </>
-  );
-}
 
-
-function InfoCard({ title, children }) {
-  return (
-    <div className="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-5 hover:shadow-xl transition-all">
-      <h3 className="text-lg font-bold text-indigo-600 dark:text-indigo-400 mb-2">
-        {title}
-      </h3>
-      <div className="text-gray-700 dark:text-gray-300 text-sm">{children}</div>
+      <Footer />
     </div>
   );
 }
 
-function ProgressBar({ name, level }) {
+function TechIcon({ icon, label, color }) {
   return (
-    <div className="mb-3">
-      <div className="flex justify-between text-sm mb-1">
-        <span>{name}</span>
-        <span>{level}%</span>
+    <motion.div 
+      whileHover={{ scale: 1.1, y: -2 }}
+      className="flex flex-col items-center gap-3 group cursor-pointer"
+    >
+      <div className={`p-5 bg-white/[0.03] border border-white/5 rounded-3xl group-hover:bg-white/10 group-hover:border-indigo-500/50 transition-all duration-300 ${color}`}>
+        {React.cloneElement(icon, { size: 28 })}
       </div>
-      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: `${level}%` }}
-          transition={{ duration: 0.7 }}
-          className="h-2 rounded-full bg-gradient-to-r from-indigo-500 to-pink-500"
-        />
-      </div>
-    </div>
-  );
-}
-
-function Badge({ label }) {
-  return (
-    <span className="px-4 py-2 rounded-full bg-gradient-to-r from-indigo-100 to-pink-100 dark:from-gray-700 dark:to-gray-800 text-gray-800 dark:text-gray-200 shadow-sm text-sm">
-      {label}
-    </span>
+      <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-white transition-colors">{label}</span>
+    </motion.div>
   );
 }
