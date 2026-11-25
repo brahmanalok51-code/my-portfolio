@@ -39,8 +39,8 @@ const projects = [
     ],
     summary:
       "An end-to-end laundry platform connecting web and mobile experiences with real-time smart-plug telemetry. It supports multi-organization, role-based access, live machine runtime tracking, automated power control, and revenue analytics, and runs on a Linux VPS.",
-    liveUrl: "https://hexawash.app",
-    githubUrl: "#",
+    liveUrl: "https://hexawash.app/",
+    githubUrl: "",
     icon: WashingMachine,
     featured: true,
   },
@@ -60,8 +60,8 @@ const projects = [
     ],
     summary:
       "A multi-tenant billing system that helps businesses manage customers, create GST-ready invoices, and track payments. Row-Level Security keeps each organization’s data isolated.",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "",
+    githubUrl: "https://github.com/brahmanalok51-code/biling_system",
     icon: BriefcaseBusiness,
     featured: true,
   },
@@ -80,8 +80,8 @@ const projects = [
     ],
     summary:
       "A conversational voice tutor for spoken English practice, with speech-to-text, natural audio playback, grammar corrections, and a tiered vocabulary builder.",
-    liveUrl: "https://lunarcodetech.netlify.app",
-    githubUrl: "#",
+    liveUrl: "https://lunarcodetech.netlify.app/",
+    githubUrl: "",
     icon: BrainCircuit,
     featured: true,
   },
@@ -100,8 +100,8 @@ const projects = [
     ],
     summary:
       "A Salesforce and Node.js ticketing platform with LWC dashboards, Apex triggers for seat capacity, QR ticket generation, and OAuth 2.0 verification through a Node.js service.",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "",
+    githubUrl: "",
     icon: Ticket,
     featured: false,
   },
@@ -120,8 +120,8 @@ const projects = [
     ],
     summary:
       "A local task platform where neighbors can post, discover, and complete everyday jobs. It includes cross-platform mobile support, real-time notifications, feedback modals, and secure sign-in.",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "",
+    githubUrl: "",
     icon: MapPin,
     featured: false,
   },
@@ -140,8 +140,8 @@ const projects = [
     ],
     summary:
       "A focused study space that turns YouTube lectures into learning modules with mind maps, notes, flashcards, quizzes, and English or Hindi learning controls.",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://ytschool.com/",
+    githubUrl: "",
     icon: Globe2,
     featured: false,
   },
@@ -161,8 +161,8 @@ const projects = [
     ],
     summary:
       "A corporate website and full-stack blog CMS with a rich article editor, SEO controls, secure admin sign-in, rate-limited APIs, and production deployment on a Linux VPS.",
-    liveUrl: "https://lunarcode.tech",
-    githubUrl: "#",
+    liveUrl: "https://lunarcode.tech/",
+    githubUrl: "",
     icon: Code2,
     featured: false,
   },
@@ -181,8 +181,9 @@ const projects = [
     ],
     summary:
       "A medical image analysis application using the custom skin_cancer_cnn.h5 convolutional neural network to classify skin lesion images and present structured probability reports.",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "",
+    githubUrl:
+      "https://github.com/brahmanalok51-code/smart_skin_cancer_detection",
     icon: ScanFace,
     featured: false,
   },
@@ -196,7 +197,8 @@ const categories = [
   "Enterprise / SaaS",
 ];
 
-const isConfiguredUrl = (url) => Boolean(url && url !== "#");
+const isConfiguredUrl = (url) =>
+  typeof url === "string" && url.startsWith("https://");
 
 function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -350,6 +352,11 @@ function Projects() {
                   const ProjectIcon = project.icon;
                   const hasLiveDemo = isConfiguredUrl(project.liveUrl);
                   const hasSourceCode = isConfiguredUrl(project.githubUrl);
+                  const primaryUrl = hasLiveDemo
+                    ? project.liveUrl
+                    : hasSourceCode
+                      ? project.githubUrl
+                      : "";
 
                   return (
                     <Motion.article
@@ -449,14 +456,15 @@ function Projects() {
                         </div>
 
                         <div className="theme-project-actions mt-auto flex items-center gap-2 border-t pt-4">
-                          {hasLiveDemo ? (
+                          {primaryUrl ? (
                             <a
-                              href={project.liveUrl}
+                              href={primaryUrl}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="theme-project-action theme-project-action-primary"
                             >
-                              Live Demo <ExternalLink size={14} />
+                              {hasLiveDemo ? "Live Demo" : "View Source"}{" "}
+                              <ExternalLink size={14} />
                             </a>
                           ) : (
                             <button
@@ -467,7 +475,7 @@ function Projects() {
                               Quick View <ArrowUpRight size={15} />
                             </button>
                           )}
-                          {hasSourceCode ? (
+                          {hasSourceCode && hasLiveDemo ? (
                             <a
                               href={project.githubUrl}
                               target="_blank"
@@ -612,7 +620,7 @@ function Projects() {
                   !isConfiguredUrl(selectedProject.githubUrl) && (
                     <span className="theme-project-detail-note inline-flex items-center gap-2 text-sm">
                       <Check size={15} />
-                      Links can be added in the project data at the top of this file.
+                      Project links will be available soon.
                     </span>
                   )}
               </div>
